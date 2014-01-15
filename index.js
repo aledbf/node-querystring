@@ -153,6 +153,10 @@ function merge(parent, key, val){
  */
 
 function compact(obj) {
+  // Don't try to compact a Domain (connect-multiparty using domains).
+  // https://github.com/superjoe30/connect-multiparty/blob/master/index.js#91
+  if (obj instanceof require('domain').Domain) return obj;
+
   if ('object' != typeof obj) return obj;
 
   if (isArray(obj)) {
